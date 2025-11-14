@@ -11,21 +11,29 @@ public class Prix {
 
         nombreMystere = random.nextInt(100) + 1;
         while (tentativeUtilisateur != nombreMystere) {
-            System.out.print("Veuillez choisir un nombre:   ");
-            tentativeUtilisateur = scanner.nextInt();
-            nombreDeCoup++;
-
-            if (tentativeUtilisateur < nombreMystere) {
-                System.out.println("Votre nombre est inférieur au nombre mystère, veuillez saisir un nombre plus grand :");
-            } else if (tentativeUtilisateur > nombreMystere) {
-                System.out.println("Votre nombre est supérieur au nombre mystère, veuillez saisir un nombre plus petit :");
+            System.out.print("Veuillez choisir un nombre entre 0 et 100: ");
+            if (scanner.hasNextInt()) {
+                tentativeUtilisateur = scanner.nextInt();
+                nombreDeCoup++;
+                // Ici seulement comparer si c'est un vrai int
+                if (tentativeUtilisateur < nombreMystere) {
+                    System.out.println("Votre nombre est inférieur au nombre mystère, veuillez saisir un nombre plus grand :");
+                } else if (tentativeUtilisateur > nombreMystere) {
+                    System.out.println("Votre nombre est supérieur au nombre mystère, veuillez saisir un nombre plus petit :");
+                }
+            } else {
+                scanner.next(); // consomme l'entrée invalide
+                System.out.println("Erreur: Entrez un nombre valide.");
+                continue; // Passe à la prochaine itération, évite la comparaison avec nombreMystere
             }
+        }
+
             /*if (nombreDeCoup > 5) {
                 System.out.println("Trop de tentatives le jeux s'arrete ");
             }*/
 
 
-        }
+
         System.out.println("Bravo vous avez trouvé le nombre mystère : " + nombreMystere + " en " + nombreDeCoup + " tentatives");
         scanner.close();
     }
